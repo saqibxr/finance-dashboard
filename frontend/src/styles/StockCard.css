@@ -1,0 +1,25 @@
+.stock-card {
+
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+
+    border: 1px solid #ddd;
+
+    margin-top: 20px;
+
+}
+
+
+.stock-card h2 {
+
+    margin-bottom: 10px;
+
+}
+
+
+.stock-card p {
+
+    font-size: 18px;
+
+}
