@@ -32,9 +32,11 @@ function Dashboard() {
                 {stocks.map(stock => (
 
                     <StockCard
-                        key={stock.company}
                         company={stock.company}
+                        symbol={stock.symbol}
                         price={stock.price}
+                        change={stock.change}
+                        history={stock.history}
                     />
 
                 ))}
