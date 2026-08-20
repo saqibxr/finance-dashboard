@@ -29,7 +29,7 @@ public class StockController {
     }
 
     @GetMapping("/api/stocks/apple")
-    public String getAppleData() throws Exception {
+    public Stock getAppleData() throws Exception {
         return alphaVantageService.getAppleData();
     }
 }

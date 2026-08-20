@@ -14,11 +14,11 @@ function StockCard(props) {
             <p>{props.symbol}</p>
 
             <p>
-                Price: ${props.price}
+                Price: ${Number(props.price).toFixed(2)}
             </p>
 
             <p className={changeClass}>
-                {changeIndicator} {props.change}%
+                {changeIndicator} {Number(props.change).toFixed(2)}%
             </p>
 
             {props.history.length > 0

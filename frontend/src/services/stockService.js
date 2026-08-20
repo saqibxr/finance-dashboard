@@ -18,3 +18,12 @@ export async function getStocks() {
     return await response.json();
 
 }
+
+export async function getAppleStock() {
+
+    const response = await fetch(
+        `${API_URL}/api/stocks/apple`
+    );
+
+    return await response.json();
+}

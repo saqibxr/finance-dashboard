@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import StockCard from "../components/StockCard";
 import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";
-import { getStocks } from "../services/stockService";
+import { getAppleStock } from "../services/stockService";
 
 function Dashboard() {
 
@@ -10,9 +10,9 @@ function Dashboard() {
 
     useEffect(() => {
 
-        getStocks()
+        getAppleStock()
             .then(data => {
-                setStocks(data);
+                setStocks([data]);
             })
             .catch(error => {
                 console.error(error);
