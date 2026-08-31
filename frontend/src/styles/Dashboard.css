@@ -1,6 +1,89 @@
-.stock-container {
+.dashboard {
+    min-height: 100vh;
+    padding: 30px;
+    background: #242424;
+    color: rgba(255, 255, 255, 0.87);
+}
 
+.dashboard h1 {
+    margin-bottom: 25px;
+}
+
+.search-container {
     display: flex;
-    gap: 20px;
+    gap: 10px;
+    margin-bottom: 30px;
+}
 
+.search-container input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 6px;
+}
+
+.search-container input::placeholder {
+    color: #888;
+}
+
+.search-container button,
+.watchlist-item button,
+.stock-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background: #1a1a1a;
+    border: 1px solid #555;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.search-container button:hover,
+.watchlist-item button:hover,
+.stock-container button:hover {
+    border-color: #646cff;
+}
+
+.stock-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.watchlist {
+    margin-top: 40px;
+    padding: 25px;
+    border: 1px solid #444;
+    border-radius: 12px;
+    background: #1a1a1a;
+}
+
+.watchlist h2 {
+    margin-bottom: 20px;
+}
+
+.watchlist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+}
+
+.watchlist-item button {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.stock-container > div {
+    width: 100%;
+    max-width: 800px;
+}
+
+.stock-chart {
+    width: 100%;
+    height: 320px;
 }

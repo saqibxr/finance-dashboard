@@ -24,9 +24,14 @@ public class TwelveDataService {
     private String apiKey;
 
     private final ObjectMapper objectMapper;
+    private final CompanyNameService companyNameService;
 
-    public TwelveDataService(ObjectMapper objectMapper) {
+    public TwelveDataService(
+            ObjectMapper objectMapper,
+            CompanyNameService companyNameService) {
+
         this.objectMapper = objectMapper;
+        this.companyNameService = companyNameService;
     }
 
     public Stock getStockData(String symbol) throws Exception {
@@ -85,6 +90,10 @@ public class TwelveDataService {
                             close
                     )
             );
+            
+            history.sort(
+                (a, b) -> a.getDate().compareTo(b.getDate())
+);
         }
 
         // First item is the latest day
@@ -100,8 +109,8 @@ public class TwelveDataService {
                 ((latestPrice - previousPrice) / previousPrice) * 100;
 
         return new Stock(
-                symbol,
-                symbol,
+                companyNameService.getCompanyName(symbol),
+                symbol.toUpperCase(),
                 latestPrice,
                 change,
                 history

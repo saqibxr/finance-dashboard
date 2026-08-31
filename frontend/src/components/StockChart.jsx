@@ -1,3 +1,5 @@
+import "../styles/StockChart.css";
+
 import {
     LineChart,
     Line,
@@ -10,53 +12,62 @@ import {
 
 function StockChart(props) {
 
-    const data = props.history.map(stock => ({
-        ...stock,
-        price: Number(stock.price)
-    }));
-
-    const symbol = props.symbol;
+    const data = props.history;
 
     return (
-        <div>
+        <div className="stock-chart">
 
-            <h3>{symbol} Price History</h3>
+            <h3>{props.symbol} Price History</h3>
 
-            <ResponsiveContainer width="100%" height={250}>
-                <LineChart data={data}>
+            <ResponsiveContainer width="100%" height="100%">
+
+                <LineChart
+                    data={data}
+                    margin={{
+                        top: 10,
+                        right: 20,
+                        left: 10,
+                        bottom: 10
+                    }}
+                >
 
                     <CartesianGrid strokeDasharray="3 3" />
 
                     <XAxis
                         dataKey="date"
                         tickFormatter={(value) => {
+
                             const date = new Date(value);
 
                             return date.toLocaleDateString("en-GB", {
                                 day: "numeric",
                                 month: "short"
                             });
+
                         }}
                     />
 
                     <YAxis
-                        tickFormatter={(value) => `$${value.toFixed(2)}`}
+                        domain={["auto", "auto"]}
+                        tickFormatter={(value) => `$${value.toFixed(0)}`}
                     />
 
                     <Tooltip
-                        formatter={(value) => [
-                            `$${Number(value).toFixed(2)}`,
-                            "Price"
-                        ]}
                         labelFormatter={(value) => {
+
                             const date = new Date(value);
 
                             return date.toLocaleDateString("en-GB", {
                                 day: "numeric",
-                                month: "short",
+                                month: "long",
                                 year: "numeric"
                             });
+
                         }}
+                        formatter={(value) => [
+                            `$${Number(value).toFixed(2)}`,
+                            "Price"
+                        ]}
                     />
 
                     <Line
@@ -67,6 +78,7 @@ function StockChart(props) {
                     />
 
                 </LineChart>
+
             </ResponsiveContainer>
 
         </div>
@@ -74,4 +86,3 @@ function StockChart(props) {
 }
 
 export default StockChart;
-
