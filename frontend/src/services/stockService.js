@@ -16,14 +16,17 @@ export async function getStocks() {
     );
 
     return await response.json();
-
 }
 
-export async function getAppleStock() {
+export async function getStock(symbol) {
 
     const response = await fetch(
-        `${API_URL}/api/stocks/apple`
+        `${API_URL}/api/stocks/${symbol}`
     );
+
+    if (!response.ok) {
+        throw new Error("Stock not found");
+    }
 
     return await response.json();
 }

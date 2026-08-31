@@ -3,24 +3,25 @@ package com.saqib.backend.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.saqib.backend.model.Stock;
 import com.saqib.backend.service.StockService;
-import com.saqib.backend.service.AlphaVantageService;
+import com.saqib.backend.service.TwelveDataService;
 
 @RestController
 public class StockController {
 
     private final StockService stockService;
-    private final AlphaVantageService alphaVantageService;
+    private final TwelveDataService twelveDataService;
 
     public StockController(
             StockService stockService,
-            AlphaVantageService alphaVantageService) {
+            TwelveDataService twelveDataService) {
 
         this.stockService = stockService;
-        this.alphaVantageService = alphaVantageService;
+        this.twelveDataService = twelveDataService;
     }
 
     @GetMapping("/api/stocks")
@@ -28,8 +29,8 @@ public class StockController {
         return stockService.getStocks();
     }
 
-    @GetMapping("/api/stocks/apple")
-    public Stock getAppleData() throws Exception {
-        return alphaVantageService.getAppleData();
+    @GetMapping("/api/stocks/{symbol}")
+    public Stock getStockData(@PathVariable String symbol) throws Exception {
+        return twelveDataService.getStockData(symbol);
     }
 }
