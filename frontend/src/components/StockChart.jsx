@@ -27,7 +27,7 @@ function StockChart(props) {
                         top: 10,
                         right: 20,
                         left: 10,
-                        bottom: 10
+                        bottom: 30
                     }}
                 >
 

@@ -10,7 +10,15 @@ function Dashboard() {
     const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [watchlist, setWatchlist] = useState([]);
+    const [watchlist, setWatchlist] = useState(() => {
+
+        const savedWatchlist = localStorage.getItem("watchlist");
+
+        return savedWatchlist
+            ? JSON.parse(savedWatchlist)
+            : [];
+
+    });
 
     async function handleSearch() {
 
@@ -46,14 +54,29 @@ function Dashboard() {
         );
 
         if (!alreadyAdded) {
-            setWatchlist([...watchlist, stock]);
+
+            const updatedWatchlist = [...watchlist, stock];
+
+            setWatchlist(updatedWatchlist);
+
+            localStorage.setItem(
+                "watchlist",
+                JSON.stringify(updatedWatchlist)
+            );
         }
     }
 
     function removeFromWatchlist(symbol) {
 
-        setWatchlist(
-            watchlist.filter(stock => stock.symbol !== symbol)
+        const updatedWatchlist = watchlist.filter(
+            stock => stock.symbol !== symbol
+        );
+
+        setWatchlist(updatedWatchlist);
+
+        localStorage.setItem(
+            "watchlist",
+            JSON.stringify(updatedWatchlist)
         );
     }
 
@@ -73,15 +96,23 @@ function Dashboard() {
                     onChange={(event) => setSearch(event.target.value)}
                 />
 
-                <button onClick={handleSearch}>
-                    Search
+                <button onClick={handleSearch} disabled={loading}>
+                    {loading ? "Searching..." : "Search"}
                 </button>
 
             </div>
 
-            {loading && <p>Searching...</p>}
+            {loading && (
+                <p className="loading-message">
+                    Searching for stock...
+                </p>
+            )}
 
-            {error && <p>{error}</p>}
+            {error && (
+                <p className="error-message">
+                    {error}
+                </p>
+            )}
 
             <div className="stock-container">
 
@@ -119,32 +150,51 @@ function Dashboard() {
 
                 ) : (
 
-                    watchlist.map(stock => (
+            watchlist.map(stock => (
 
-                        <div
-                            className="watchlist-item"
-                            key={stock.symbol}
+                <div
+                    className="watchlist-item"
+                    key={stock.symbol}
+                >
+
+                    <div className="watchlist-stock">
+
+                        <strong>{stock.company}</strong>
+
+                        <span>{stock.symbol}</span>
+
+                    </div>
+
+                    <div className="watchlist-price">
+
+                        <strong>
+                            ${Number(stock.price).toFixed(2)}
+                        </strong>
+
+                        <span
+                            className={
+                                stock.change >= 0
+                                    ? "positive"
+                                    : "negative"
+                            }
                         >
+                            {stock.change >= 0 ? "▲" : "▼"}{" "}
+                            {Number(stock.change).toFixed(2)}%
+                        </span>
 
-                            <span>
-                                {stock.company} ({stock.symbol})
-                            </span>
+                    </div>
 
-                            <span>
-                                ${Number(stock.price).toFixed(2)}
-                            </span>
+                    <button
+                        onClick={() =>
+                            removeFromWatchlist(stock.symbol)
+                        }
+                    >
+                        Remove
+                    </button>
 
-                            <button
-                                onClick={() =>
-                                    removeFromWatchlist(stock.symbol)
-                                }
-                            >
-                                Remove
-                            </button>
+                </div>
 
-                        </div>
-
-                    ))
+            ))
 
                 )}
 
