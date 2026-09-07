@@ -27,6 +27,7 @@ A full-stack financial market dashboard built with:
 
 The application follows a full-stack architecture:
 
+```text
 React + Vite
       ↓
 Spring Boot REST API
@@ -34,7 +35,7 @@ Spring Boot REST API
 Twelve Data API
       ↓
 Stock Market Data
-
+```
 
 The React frontend communicates with the Spring Boot backend, which retrieves financial data from the Twelve Data API and returns it to the dashboard.
 
@@ -60,8 +61,8 @@ The React frontend communicates with the Spring Boot backend, which retrieves fi
 
 ## Current Status
 
-**Mainly completed**
+✅ **Completed**
 
-Core stock search, data visualisation, watchlist and portfolio functionality are implemented.
+Core stock search, data visualisation, watchlist and portfolio functionality have been implemented.
 
 Future improvements may include deployment, database integration and additional financial data.
